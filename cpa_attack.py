@@ -34,16 +34,18 @@ TRUE_KEY = np.array([
 
 # ===== Load data =====
 print("Loading traces...")
-traces = np.load('traces/traces.npy')
-plaintexts = np.load('traces/plaintexts.npy')
+#traces = np.load('traces/traces.npy')
+#plaintexts = np.load('traces/plaintexts.npy')
+traces = np.load('traces_hispeed/traces.npy')
+plaintexts = np.load('traces_hispeed/plaintexts.npy')
 print(f"Traces shape: {traces.shape}")
 print(f"Plaintexts shape: {plaintexts.shape}")
 
 # ===== Trim to the AES region =====
 # Based on your mean trace, AES runs roughly from sample 5000 to 23500
 # Add some margin for safety
-TRACE_START = 4500
-TRACE_END = 24000
+TRACE_START = 1000   # skip first few samples (trigger transient)
+TRACE_END = traces.shape[1] - 1000
 traces = traces[:, TRACE_START:TRACE_END]
 print(f"Trimmed traces shape: {traces.shape}")
 
